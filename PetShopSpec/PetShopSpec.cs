@@ -6,6 +6,7 @@ using It = Machine.Specifications.It;
 
 namespace Training.Specificaton
 {
+
     public abstract class pet_shop_concern : Specification<PetShop>
     {
         Establish context = () =>
@@ -80,6 +81,7 @@ namespace Training.Specificaton
         private static Pet pet;
     }
 
+
 	public class when_adding_a_new_pet_with_existing_name_ : pet_shop_concern
     {
         Establish context = () =>
@@ -97,4 +99,19 @@ namespace Training.Specificaton
         private static Pet fluffy_the_first;
         private static Pet fluffy_the_second;
     }
+    [Subject(typeof(PetShop))]
+    class when_trying_to_change_returned_collection_of_pets : pet_shop_concern
+    {
+        Establish c = () => pet_initial_content.AddManyItems(new Pet { name = "Pixie" }, new Pet { name = "Dixie" });
+        Because b = () =>
+        {
+            IEnumerable<Pet> returned_pets = subject.AllPets();
+            exception = Catch.Exception(() => { var x = (ICollection<Pet>)returned_pets; });
+        };
+        private static IEnumerable<Pet> returned_collection_of_pets;
+        private static Exception exception;
+        It invalid_cast_exception_should_be_thrown = () => exception.ShouldBeOfExactType<InvalidCastException>();
+    }
+
+
 }
