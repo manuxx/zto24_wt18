@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Training.DomainClasses;
 
-namespace PetShop
+namespace Training.DomainClasses
 {
     internal class EnumerableExtensions
     {
