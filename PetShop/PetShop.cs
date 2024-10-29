@@ -43,10 +43,7 @@ namespace Training.DomainClasses
         {
             List<Pet> petList = new List<Pet>(_petsInTheStore);
             petList.Sort((a, b) => String.Compare(a.name, b.name));
-            foreach (var pet in petList)
-            {
-                yield return pet;
-            }
+            return petList;
         }
 
     }
