@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Training.DomainClasses
@@ -26,25 +25,22 @@ namespace Training.DomainClasses
                     _petsInTheStore.Add(newPet);
                 }
         }
-    }
 
-    public class ReadOnlySet<TItem> : IEnumerable<TItem>
-    {
-        private IList<TItem> _items;
-
-        public ReadOnlySet(IList<TItem> items)
+        public IEnumerable<Pet> AllCats()
         {
-            _items = items;
+            foreach (var pet in _petsInTheStore)
+            {
+                if (pet.species == Species.Cat)
+                    yield return pet;
+            }
+
         }
 
-        public IEnumerator<TItem> GetEnumerator()
+        public IEnumerable<Pet> AllPetsSortedByName()
         {
-            return _items.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            var result = new List<Pet>(_petsInTheStore);
+            result.Sort((p1, p2) => p1.name.CompareTo(p2.name));
+            return result;
         }
     }
 }
