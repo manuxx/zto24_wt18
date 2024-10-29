@@ -4,11 +4,11 @@ namespace Training.DomainClasses;
 
 public static class EnumerableExtensions
 {
-    public static IEnumerable<Pet> ToIterator(IEnumerable<Pet> pets)
+    public static IEnumerable<TItem> ToIterator<TItem>(IEnumerable<TItem> items)
     {
-        foreach (var pet in pets)
+        foreach (var item in items)
         {
-            yield return pet;
+            yield return item;
         }
     }
 }
