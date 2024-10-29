@@ -3,11 +3,11 @@ using Training.DomainClasses;
 
 public static class EnumerableExtensions
 {
-    public static IEnumerable<Pet> OneAtATIme(IEnumerable<Pet> pets)
+    public static IEnumerable<TItem> OneAtATIme<TItem>(IEnumerable<TItem> items)
     {
-        foreach (var pet in pets)
+        foreach (var item in items)
         {
-            yield return pet;
+            yield return item;
         }
     }
 }
