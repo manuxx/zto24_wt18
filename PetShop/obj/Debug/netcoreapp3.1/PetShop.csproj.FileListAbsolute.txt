@@ -1,0 +1,10 @@
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\bin\Debug\netcoreapp3.1\PetShop.deps.json
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\bin\Debug\netcoreapp3.1\PetShop.dll
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\bin\Debug\netcoreapp3.1\PetShop.pdb
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\obj\Debug\netcoreapp3.1\PetShop.csproj.AssemblyReference.cache
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\obj\Debug\netcoreapp3.1\PetShop.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\obj\Debug\netcoreapp3.1\PetShop.AssemblyInfoInputs.cache
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\obj\Debug\netcoreapp3.1\PetShop.AssemblyInfo.cs
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\obj\Debug\netcoreapp3.1\PetShop.csproj.CoreCompileInputs.cache
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\obj\Debug\netcoreapp3.1\PetShop.dll
+C:\Users\student.NMKZLLAB\Downloads\zto24_wt18-main-1\zto24_wt18-main\PetShop\obj\Debug\netcoreapp3.1\PetShop.pdb
