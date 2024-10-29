@@ -210,13 +210,13 @@ namespace Training.Specificaton
         };
     }
 
-    [Ignore("this will be implemented 2nd")]
+    // [Ignore("this will be implemented 2nd")]
     class when_sorting_pets : concern_with_pets_for_sorting_and_filtering
     {
         It should_be_able_to_sort_by_name_ascending = () =>
         {
             var result = subject.AllPetsSortedByName();
-
+    
             result.ShouldContainOnlyInOrder(mouse_Dixie, rabbit_Fluffy, dog_Huckelberry, mouse_Jerry, cat_Jinx,
                 dog_Lassie,
                 dog_Pluto, cat_Tom);
