@@ -1,6 +1,4 @@
-﻿using Training.DomainClasses;
-
-namespace PetShop
+﻿namespace PetShop
 {
     public class Species
     {

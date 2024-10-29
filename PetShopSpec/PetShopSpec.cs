@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Training.DomainClasses;
 using Machine.Specifications;
 using PetShop;
+using Training.Specificaton;
 using It = Machine.Specifications.It;
 
-namespace Training.Specificaton
+namespace PetShopSpec
 {
 
     public abstract class pet_shop_concern : Specification<PetShop.PetShop>

@@ -1,7 +1,6 @@
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
-using Training.DomainClasses;
 
 namespace PetShop
 {
@@ -14,24 +13,10 @@ namespace PetShop
 
         public void Add(Pet newPet)
         {
-
-                if (!petsInTheStore.Contains(newPet))
-                {
-                    petsInTheStore.Add(newPet);
-                }
-        }
-    }
-
-    public class ReadOnlySet<T>(IList<T> petsInTheStore) : IEnumerable<T>
-    {
-        public IEnumerator<T> GetEnumerator()
-        {
-            return petsInTheStore.OneAtTime().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            if (!petsInTheStore.Contains(newPet))
+            {
+                petsInTheStore.Add(newPet);
+            }
         }
     }
 }
