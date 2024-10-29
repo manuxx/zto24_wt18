@@ -25,5 +25,15 @@ namespace Training.DomainClasses
                     _petsInTheStore.Add(newPet);
                 }
         }
+
+        public IEnumerable<Pet> AllCats()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Pet> AllPetsSortedByName()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
