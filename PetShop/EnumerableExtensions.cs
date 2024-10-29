@@ -5,7 +5,7 @@ using Training.DomainClasses;
 
 namespace Training.DomainClasses
 {
-    internal class EnumerableExtensions
+    internal static class EnumerableExtensions
     {
         public static IEnumerable<TItem> OneAtTheTime<TItem>(IEnumerable<TItem> pets)
         {
