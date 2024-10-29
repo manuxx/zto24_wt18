@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.ComponentModel.DataAnnotations;
 
 namespace Training.DomainClasses
 {
@@ -24,6 +26,26 @@ namespace Training.DomainClasses
                 {
                     _petsInTheStore.Add(newPet);
                 }
+        }
+
+        public IEnumerable<Pet> AllCats()
+        {
+            foreach (var pet in _petsInTheStore)
+            {
+                if (pet.species == Species.Cat)
+                    yield return pet;
+            }
+        }
+
+        public IEnumerable<Pet> AllPetsSortedByName()
+        {
+            var pets = new List<Pet>(_petsInTheStore);
+            pets.Sort((pet, pet1) => string.CompareOrdinal(pet.name, pet1.name));
+
+            foreach (var pet in pets)
+            {
+                yield return pet;
+            }
         }
     }
 }
