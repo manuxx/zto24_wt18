@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 
 namespace Training.DomainClasses
 {
@@ -37,7 +39,11 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPetsSortedByName()
         {
-            return new SortedSet<Pet>(_petsInTheStore);
+            return new SortedSet<Pet>(_petsInTheStore, Comparer<Pet>.Create((p1, p2) =>
+            {
+                if (ReferenceEquals(p1, p2)) return 0;
+                return string.Compare(p1.name, p2.name, StringComparison.Ordinal);
+            }));
         }
     }
 }
