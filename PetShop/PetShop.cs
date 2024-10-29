@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,7 +41,13 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPetsSortedByName()
         {
-            throw new NotImplementedException();
+            List<Pet> petList = new List<Pet>(_petsInTheStore);
+            petList.Sort((a, b) => String.Compare(a.name, b.name));
+            foreach (var pet in petList)
+            {
+                yield return pet;
+            }
         }
+
     }
 }
