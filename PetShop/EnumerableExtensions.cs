@@ -7,7 +7,7 @@ namespace Training.DomainClasses
 {
     internal class EnumerableExtensions
     {
-        public static IEnumerable<Pet> OneAtTheTime(IEnumerable<Pet> pets)
+        public static IEnumerable<TItem> OneAtTheTime<TItem>(IEnumerable<TItem> pets)
         {
             foreach (var pet in pets)
             {
