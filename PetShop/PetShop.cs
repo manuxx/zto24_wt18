@@ -20,15 +20,9 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPetsSortedByName()
         {
-            for (int i = 0; i < this._petsInTheStore.Count - 1; i++)
-                for (int j = 0; j < this._petsInTheStore.Count - i - 1; j++)
-                    if (this._petsInTheStore[j].name.CompareTo(this._petsInTheStore[j + 1].name) > 0)
-                    {
-                        var p = this._petsInTheStore[j];
-                        this._petsInTheStore[j] = this._petsInTheStore[j + 1];
-                        this._petsInTheStore[j + 1] = p;
-                    }
-            return new ReadOnlySet<Pet>(_petsInTheStore);
+            var result = new List<Pet>(this._petsInTheStore);
+            result.Sort((pet1, pet2) => pet1.name.CompareTo(pet2.name));
+            return result;
         }
 
         public IEnumerable<Pet> AllCats()
