@@ -1,3 +1,4 @@
+using PetShop;
 using System;
 using System.Collections.Generic;
 
@@ -14,10 +15,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPets()
         {
-            foreach (var pet in _petsInTheStore)
-            {
-                yield return pet;
-            }
+            return EnumerableExtensions.OneAtTheTime(this._petsInTheStore);
         }
 
         public void Add(Pet newPet)
