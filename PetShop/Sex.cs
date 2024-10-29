@@ -1,4 +1,4 @@
-namespace Training.DomainClasses
+namespace PetShop
 {
     public enum Sex
     {

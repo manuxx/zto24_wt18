@@ -1,6 +1,6 @@
 using System;
 
-namespace Training.DomainClasses
+namespace PetShop
 {
     public class Pet : IEquatable<Pet>
     {

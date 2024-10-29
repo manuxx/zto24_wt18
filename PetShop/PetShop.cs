@@ -1,28 +1,21 @@
-using System;
 using System.Collections.Generic;
+using Training.DomainClasses;
 
-namespace Training.DomainClasses
+namespace PetShop
 {
-    public class PetShop
+    public class PetShop(IList<Pet> petsInTheStore)
     {
-        private IList<Pet> _petsInTheStore;
-
-        public PetShop(IList<Pet> petsInTheStore)
-        {
-            this._petsInTheStore = petsInTheStore;
-        }
-
         public IEnumerable<Pet> AllPets()
         {
-            return EnumerableExtensions.OneAtTime(_petsInTheStore);
+            return petsInTheStore.OneAtTime();
         }
 
         public void Add(Pet newPet)
         {
 
-                if (!_petsInTheStore.Contains(newPet))
+                if (!petsInTheStore.Contains(newPet))
                 {
-                    _petsInTheStore.Add(newPet);
+                    petsInTheStore.Add(newPet);
                 }
         }
     }
