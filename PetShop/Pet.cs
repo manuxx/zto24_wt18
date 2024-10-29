@@ -2,8 +2,9 @@ using System;
 
 namespace Training.DomainClasses
 {
-    public class Pet : IEquatable<Pet>
+    public class Pet : IEquatable<Pet>, IComparable<Pet>
     {
+        
         public bool Equals(Pet other)
         {
             if (other is null) return false;
@@ -39,5 +40,12 @@ namespace Training.DomainClasses
         public int yearOfBirth { get; set; }
         public float price { get; set; }
         public Species species { get; set; }
+
+        public int CompareTo(Pet other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (other is null) return 1;
+            return string.Compare(name, other.name, StringComparison.Ordinal);
+        }
     }
 }
