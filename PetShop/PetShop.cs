@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Training.DomainClasses
@@ -14,7 +15,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPets()
         {
-            return EnumerableExtensions.ToIterator(_petsInTheStore);
+            return new ReadOnlySet(_petsInTheStore);
         }
 
         public void Add(Pet newPet)
@@ -24,6 +25,30 @@ namespace Training.DomainClasses
                 {
                     _petsInTheStore.Add(newPet);
                 }
+        }
+    }
+
+    public class ReadOnlySet : IEnumerable<Pet>
+    {
+        public ReadOnlySet(IEnumerable<Pet> pets)
+        {
+            _pets = pets;
+        }
+
+        private IEnumerable<Pet> _pets;
+
+        public IEnumerator<Pet> GetEnumerator()
+        {
+
+            foreach (var pet in _pets)
+            {
+                yield return pet;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
