@@ -14,15 +14,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPets()
         {
-            return ToIterator(_petsInTheStore);
-        }
-
-        private static IEnumerable<Pet> ToIterator(IEnumerable<Pet> pets)
-        {
-            foreach (var pet in pets)
-            {
-                yield return pet;
-            }
+            return EnumerableExtensions.ToIterator(_petsInTheStore);
         }
 
         public void Add(Pet newPet)
