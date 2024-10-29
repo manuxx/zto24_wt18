@@ -5,7 +5,7 @@ namespace Training.DomainClasses
 {
     public class PetShop
     {
-        private IList<Pet> _petsInTheStore;
+        private readonly IList<Pet> _petsInTheStore;
 
         public PetShop(IList<Pet> petsInTheStore)
         {
@@ -19,11 +19,10 @@ namespace Training.DomainClasses
 
         public void Add(Pet newPet)
         {
-
-                if (!_petsInTheStore.Contains(newPet))
-                {
-                    _petsInTheStore.Add(newPet);
-                }
+            if (!_petsInTheStore.Contains(newPet))
+            {
+                _petsInTheStore.Add(newPet);
+            }
         }
     }
 }
