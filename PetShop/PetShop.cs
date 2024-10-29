@@ -14,7 +14,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPets()
         {
-            return _petsInTheStore.ToProtectedIEnumerable();
+            return new ProtectedIterator<Pet> (_petsInTheStore);
         }
 
         public void Add(Pet newPet)
