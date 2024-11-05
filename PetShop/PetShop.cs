@@ -44,63 +44,64 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllMice()
         {
-            return MYMETHOD(pet => pet.species == Species.Mouse);
-        }
-
-        private IEnumerable<Pet> MYMETHOD(Func<Pet, bool> parametr)
-        {
-            foreach (var pet in _petsInTheStore)
-            {
-                if (parametr(pet))
-                    yield return pet;
-            }
+            return _petsInTheStore.MYMETHOD(pet => pet.species == Species.Mouse);
         }
 
         public IEnumerable<Pet> AllFemalePets()
         {
-            return MYMETHOD(pet => pet.sex == Sex.Female);
+            return _petsInTheStore.MYMETHOD(isFEMELE());
 
             
         }
 
+        private static Func<Pet, bool> isFEMELE()
+        {
+            return pet => pet.sex == Sex.Female;
+        }
+
         public IEnumerable<Pet> AllCatsOrDogs()
         {
-            return MYMETHOD(pet => pet.species == Species.Cat || pet.species == Species.Dog);
+            return _petsInTheStore.MYMETHOD(pet => pet.species == Species.Cat || pet.species == Species.Dog);
 
          
         }
 
         public IEnumerable<Pet> AllPetsButNotMice()
         {
-            return MYMETHOD(pet => pet.species != Species.Mouse);
+            return _petsInTheStore.MYMETHOD(IsSpeciesOfNOT(Species.Mouse));
 
            
         }
 
+        private static Func<Pet, bool> IsSpeciesOfNOT(Species spec)
+        {
+            return pet => pet.species != spec;
+        }
+
         public IEnumerable<Pet> AllMaleDogs()
         {
-            return MYMETHOD(pet => pet.species == Species.Dog && pet.sex == Sex.Male);
+            return _petsInTheStore.MYMETHOD(pet => pet.species == Species.Dog && pet.sex == Sex.Male);
 
           
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
         {
-            return MYMETHOD(pet => pet.yearOfBirth > 2010);
+            return _petsInTheStore.MYMETHOD(pet => pet.yearOfBirth > 2010);
 
           
         }
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
         {
-            return MYMETHOD(pet => pet.yearOfBirth > 2010 && pet.species == Species.Dog);
+            return _petsInTheStore.MYMETHOD(pet => pet.yearOfBirth > 2010 && pet.species == Species.Dog);
 
 
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2011OrRabbits()
         {
-            return MYMETHOD(pet => pet.yearOfBirth > 2011 || pet.species == Species.Rabbit);
+            return _petsInTheStore.MYMETHOD(pet => pet.yearOfBirth > 2011 || pet.species == Species.Rabbit);
 
             
         }
