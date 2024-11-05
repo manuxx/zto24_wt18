@@ -44,42 +44,42 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllMice()
         {
-            throw new NotImplementedException();
+            return EnumerableExtensions.Filtered(this._petsInTheStore, p => p.species == Species.Mouse);
         }
 
         public IEnumerable<Pet> AllFemalePets()
         {
-            throw new NotImplementedException();
+            return EnumerableExtensions.Filtered(this._petsInTheStore, p => p.sex == Sex.Female);
         }
 
         public IEnumerable<Pet> AllCatsOrDogs()
         {
-            throw new NotImplementedException();
+            return EnumerableExtensions.Filtered(this._petsInTheStore, p => p.species == Species.Cat || p.species == Species.Dog);
         }
 
         public IEnumerable<Pet> AllPetsButNotMice()
         {
-            throw new NotImplementedException();
+            return EnumerableExtensions.Filtered(this._petsInTheStore, p => p.species != Species.Mouse);
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
         {
-            throw new NotImplementedException();
+            return EnumerableExtensions.Filtered(this._petsInTheStore, p => p.yearOfBirth > 2010);
         }
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
         {
-            throw new NotImplementedException();
+            return EnumerableExtensions.Filtered(this._petsInTheStore, p => p.yearOfBirth > 2010 && p.species == Species.Dog);
         }
 
         public IEnumerable<Pet> AllMaleDogs()
         {
-            throw new NotImplementedException();
+            return EnumerableExtensions.Filtered(this._petsInTheStore, p => p.species == Species.Dog && p.sex == Sex.Male);
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2011OrRabbits()
         {
-            throw new NotImplementedException();
+            return EnumerableExtensions.Filtered(this._petsInTheStore, p => p.yearOfBirth > 2011 || p.species == Species.Rabbit);
         }
     }
 }
