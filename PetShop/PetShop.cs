@@ -29,11 +29,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllCats()
         {
-            foreach (var pet in _petsInTheStore)
-            {
-                if (pet.species == Species.Cat)
-                    yield return pet;
-            }
+            return AllPetsWhere(IsASpeciesOf(Species.Cat));
         }
 
         public IEnumerable<Pet> AllPetsSortedByName()
@@ -50,10 +46,15 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllFemalePets()
         {
-            return AllPetsWhere(pet => pet.sex == Sex.Female);
+            return AllPetsWhere(IsFemale());
         }
 
-        private IEnumerable<Pet> AllPetsWhere(Func<Pet, bool> condition)
+        private static Predicate<Pet> IsFemale()
+        {
+            return pet => pet.sex == Sex.Female;
+        }
+
+        private IEnumerable<Pet> AllPetsWhere(Predicate<Pet> condition)
         {
             foreach (var pet in AllPets())
             {
@@ -70,8 +71,13 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllMice()
         {
-            return AllPetsWhere(pet => pet.species == Species.Mouse);
+            return AllPetsWhere(IsASpeciesOf(Species.Mouse));
 
+        }
+
+        private static Predicate<Pet> IsASpeciesOf(Species species)
+        {
+            return pet => pet.species == species;
         }
 
         public IEnumerable<Pet> AllPetsButNotMice()
@@ -81,7 +87,12 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
         {
-            return AllPetsWhere(pet => pet.yearOfBirth > 2010);
+            return AllPetsWhere(IsBornAfter(2010));
+        }
+
+        private static Predicate<Pet> IsBornAfter(int year)
+        {
+            return pet => pet.yearOfBirth > year;
         }
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
