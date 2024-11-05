@@ -1,13 +1,18 @@
+using System;
 using System.Collections.Generic;
-using Training.DomainClasses;
+
+namespace Training.DomainClasses;
 
 public static class EnumerableExtensions
 {
-    public static IEnumerable<TItem> OneAtATIme<TItem>(this IEnumerable<TItem> items)
+    public static IEnumerable<Item> AllItemsWhere<Item>(this IEnumerable<Item> items, Predicate<Item> condition)
     {
-        foreach (var item in items)
+        foreach (var item in items)   
         {
-            yield return item;
+            if (condition(item))
+            {
+                yield return item;
+            }
         }
     }
 }
