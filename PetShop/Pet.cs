@@ -39,5 +39,20 @@ namespace Training.DomainClasses
         public int yearOfBirth { get; set; }
         public float price { get; set; }
         public Species species { get; set; }
+
+        public static Predicate<Pet> IsSpieceOf(Species specie)
+        {
+            return pet => pet.species == specie;
+        }
+
+        public static Predicate<Pet> IsFemale()
+        {
+            return (pet) => pet.sex == Sex.Female;
+        }
+
+        public static Predicate<Pet> IsBornAfter(int year)
+        {
+            return pet => pet.yearOfBirth > year;
+        }
     }
 }
