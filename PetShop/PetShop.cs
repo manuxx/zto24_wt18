@@ -28,11 +28,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllCats()
         {
-            foreach (var pet in _petsInTheStore)
-            {
-                if (pet.species == Species.Cat)
-                    yield return pet;
-            }
+            return AllPetsWhere(pet=>pet.species == Species.Cat);
         }
 
         public IEnumerable<Pet> AllPetsSortedByName()
@@ -40,6 +36,58 @@ namespace Training.DomainClasses
             var result = new List<Pet>(_petsInTheStore);
             result.Sort((pet1, pet2) => pet1.name.CompareTo(pet2.name));
             return result;
+        }
+
+        public IEnumerable<Pet> AllMice()
+        {
+            return AllPetsWhere(pet => pet.species == Species.Mouse);
+
+        }
+
+        public IEnumerable<Pet> AllFemalePets()
+        {
+            return AllPetsWhere(pet => pet.sex == Sex.Female);
+        }
+
+        private IEnumerable<Pet> AllPetsWhere(Func<Pet, bool> condition)
+        {
+            foreach (var pet in _petsInTheStore)
+            {
+                if (condition(pet))
+                    yield return pet;
+            }
+        }
+
+        public IEnumerable<Pet> AllCatsOrDogs()
+        {
+            return AllPetsWhere(pet => pet.species == Species.Cat || pet.species == Species.Dog);
+        }
+
+        public IEnumerable<Pet> AllPetsButNotMice()
+        {
+            return AllPetsWhere(pet => pet.species != Species.Mouse);
+        }
+
+        public IEnumerable<Pet> AllPetsBornAfter2010()
+        {
+            return AllPetsWhere(pet => pet.yearOfBirth >2010);
+        }
+
+        public IEnumerable<Pet> AllDogsBornAfter2010()
+        {
+            return AllPetsWhere(pet => pet.species == Species.Dog && pet.yearOfBirth >2010);
+
+        }
+
+        public IEnumerable<Pet> AllMaleDogs()
+        {
+            return AllPetsWhere(pet => pet.species == Species.Dog && pet.sex == Sex.Male);
+        }
+
+        public IEnumerable<Pet> AllPetsBornAfter2011OrRabbits()
+        {
+            return AllPetsWhere(pet => pet.species == Species.Rabbit || pet.yearOfBirth > 2011);
+
         }
     }
 }
