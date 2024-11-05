@@ -11,18 +11,18 @@ namespace Training.Specificaton
     {
         Establish context = () =>
         {
-            pet_initial_content = new List<Pet>();
+            pet_initial_content = new List<IEquatable<TItem>>();
             ProvideBasicConstructorArgument(pet_initial_content);
         };
 
-        protected static IList<Pet> pet_initial_content;
+        protected static IList<IEquatable<TItem>> pet_initial_content;
     }
 
     public class when_counting_pets_in_the_shop : pet_shop_concern
     {
         Establish context = () =>
         {
-            pet_initial_content.AddManyItems(new Pet(), new Pet());
+            pet_initial_content.AddManyItems(new TItem(), new TItem());
         };
         Because of = () =>
         {
@@ -38,47 +38,47 @@ namespace Training.Specificaton
     {
         Establish context = () =>
         {
-            first_pet = new Pet();
-            second_pet = new Pet();
-            pet_initial_content.AddManyItems(first_pet, second_pet);
+            _firstItem = new TItem();
+            _secondItem = new TItem();
+            pet_initial_content.AddManyItems(_firstItem, _secondItem);
         };
 
         Because of = () => pets_in_shop = subject.AllPets();
 
         It should_return_all_the_pets_in_the_shop = () =>
-            pet_initial_content.ShouldContainOnly(first_pet, second_pet);
+            pet_initial_content.ShouldContainOnly(_firstItem, _secondItem);
 
-        static Pet first_pet;
-        static Pet second_pet;
-        static IEnumerable<Pet> pets_in_shop;
+        static IEquatable<TItem> _firstItem;
+        static IEquatable<TItem> _secondItem;
+        static IEnumerable<IEquatable<TItem>> pets_in_shop;
     }
 
     public class when_adding_a_new_pet : pet_shop_concern
     {
-        Establish context = () => pet = new Pet();
-        Because of = () => subject.Add(pet);
+        Establish context = () => _item = new TItem();
+        Because of = () => subject.Add(_item);
 
         It should_store_a_new_pet_in_the_shop = () =>
-            subject.AllPets().ShouldContain(pet);
+            subject.AllPets().ShouldContain(_item);
 
-        static Pet pet;
+        static IEquatable<TItem> _item;
     }
 
 	public class when_adding_an_existing_pet_again_ : pet_shop_concern
     {
         Establish context = () =>
         {
-            pet = new Pet();
-            pet_initial_content.Add(pet);
+            _item = new TItem();
+            pet_initial_content.Add(_item);
         };
 
         Because of = () =>
-            subject.Add(pet);
+            subject.Add(_item);
 
         It should_store_a_pet_in_the_shop_once = () =>
             subject.AllPets().CountItems().ShouldEqual(1);
 
-        private static Pet pet;
+        private static IEquatable<TItem> _item;
     }
 
 
@@ -86,8 +86,8 @@ namespace Training.Specificaton
     {
         Establish context = () =>
         {
-            fluffy_the_first = new Pet { name = "Fluffy" };
-            fluffy_the_second = new Pet { name = "Fluffy" };
+            fluffy_the_first = new TItem { name = "Fluffy" };
+            fluffy_the_second = new TItem { name = "Fluffy" };
             pet_initial_content.Add(fluffy_the_first);
         };
 
@@ -96,19 +96,19 @@ namespace Training.Specificaton
         It should_contain_only_one_pet_of_the_name_in_the_store = () =>
             subject.AllPets().CountItems().ShouldEqual(1);
 
-        private static Pet fluffy_the_first;
-        private static Pet fluffy_the_second;
+        private static IEquatable<TItem> fluffy_the_first;
+        private static IEquatable<TItem> fluffy_the_second;
     }
     [Subject(typeof(PetShop))]
     class when_trying_to_change_returned_collection_of_pets : pet_shop_concern
     {
-        Establish c = () => pet_initial_content.AddManyItems(new Pet { name = "Pixie" }, new Pet { name = "Dixie" });
+        Establish c = () => pet_initial_content.AddManyItems(new TItem { name = "Pixie" }, new TItem { name = "Dixie" });
         Because b = () =>
         {
-            IEnumerable<Pet> returned_pets = subject.AllPets();
-            exception = Catch.Exception(() => { var x = (ICollection<Pet>)returned_pets; });
+            IEnumerable<IEquatable<TItem>> returned_pets = subject.AllPets();
+            exception = Catch.Exception(() => { var x = (ICollection<IEquatable<TItem>>)returned_pets; });
         };
-        private static IEnumerable<Pet> returned_collection_of_pets;
+        private static IEnumerable<IEquatable<TItem>> returned_collection_of_pets;
         private static Exception exception;
         It invalid_cast_exception_should_be_thrown = () => exception.ShouldBeOfExactType<InvalidCastException>();
     }
@@ -116,7 +116,7 @@ namespace Training.Specificaton
     {
         private Establish c = () =>
         {
-            mouse_Dixie = new Pet
+            mouse_Dixie = new TItem
             {
                 name = "Dixie",
                 species = Species.Mouse,
@@ -124,7 +124,7 @@ namespace Training.Specificaton
                 sex = Sex.Female,
                 yearOfBirth = 2011
             };
-            mouse_Jerry = new Pet
+            mouse_Jerry = new TItem
             {
                 name = "Jerry",
                 species = Species.Mouse,
@@ -133,7 +133,7 @@ namespace Training.Specificaton
                 yearOfBirth = 2012
             };
 
-            cat_Tom = new Pet
+            cat_Tom = new TItem
             {
                 name = "Tom",
                 species = Species.Cat,
@@ -141,7 +141,7 @@ namespace Training.Specificaton
                 sex = Sex.Male,
                 yearOfBirth = 2010
             };
-            cat_Jinx = new Pet
+            cat_Jinx = new TItem
             {
                 name = "Jinx",
                 species = Species.Cat,
@@ -149,7 +149,7 @@ namespace Training.Specificaton
                 sex = Sex.Male,
                 yearOfBirth = 2009
             };
-            rabbit_Fluffy = new Pet
+            rabbit_Fluffy = new TItem
             {
                 name = "Fluffy",
                 species = Species.Rabbit,
@@ -157,7 +157,7 @@ namespace Training.Specificaton
                 sex = Sex.Male,
                 yearOfBirth = 2011
             };
-            dog_Huckelberry = new Pet
+            dog_Huckelberry = new TItem
             {
                 name = "Huckelberry",
                 species = Species.Dog,
@@ -165,7 +165,7 @@ namespace Training.Specificaton
                 sex = Sex.Male,
                 yearOfBirth = 2008
             };
-            dog_Lassie = new Pet
+            dog_Lassie = new TItem
             {
                 name = "Lassie",
                 species = Species.Dog,
@@ -173,7 +173,7 @@ namespace Training.Specificaton
                 sex = Sex.Female,
                 yearOfBirth = 2007
             };
-            dog_Pluto = new Pet
+            dog_Pluto = new TItem
             {
                 name = "Pluto",
                 species = Species.Dog,
@@ -191,14 +191,14 @@ namespace Training.Specificaton
                                              mouse_Jerry);
         };
 
-        protected static Pet mouse_Dixie;
-        protected static Pet mouse_Jerry;
-        protected static Pet rabbit_Fluffy;
-        protected static Pet cat_Jinx;
-        protected static Pet cat_Tom;
-        protected static Pet dog_Huckelberry;
-        protected static Pet dog_Lassie;
-        protected static Pet dog_Pluto;
+        protected static IEquatable<TItem> mouse_Dixie;
+        protected static IEquatable<TItem> mouse_Jerry;
+        protected static IEquatable<TItem> rabbit_Fluffy;
+        protected static IEquatable<TItem> cat_Jinx;
+        protected static IEquatable<TItem> cat_Tom;
+        protected static IEquatable<TItem> dog_Huckelberry;
+        protected static IEquatable<TItem> dog_Lassie;
+        protected static IEquatable<TItem> dog_Pluto;
     }
 
     public class when_searching_for_pets : concern_with_pets_for_sorting_and_filtering
@@ -238,12 +238,12 @@ namespace Training.Specificaton
             var foundPets = subject.AllDogsBornAfter2010();
             foundPets.ShouldContainOnly(dog_Pluto);
         };
-         private It should_be_able_to_find_all_male_dogs = () =>
+        private It should_be_able_to_find_all_male_dogs = () =>
         {
             var foundPets = subject.AllMaleDogs();
             foundPets.ShouldContainOnly(dog_Huckelberry, dog_Pluto);
         };
-         private It should_be_able_to_find_all_young_pets_or_rabbits = () =>
+        private It should_be_able_to_find_all_young_pets_or_rabbits = () =>
         {
             var foundPets = subject.AllPetsBornAfter2011OrRabbits();
             foundPets.ShouldContainOnly(mouse_Jerry, rabbit_Fluffy);
