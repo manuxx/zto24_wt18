@@ -28,10 +28,12 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllCats()
         {
-            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Cat));
+            foreach (var pet in _petsInTheStore)
+            {
+                if (pet.species == Species.Cat)
+                    yield return pet;
+            }
         }
-
-
 
         public IEnumerable<Pet> AllPetsSortedByName()
         {
@@ -42,45 +44,62 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllMice()
         {
-            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Mouse));
+            return EnumerableExtensions.ItemsEnumerable(_petsInTheStore, IsASpecies(Species.Mouse));
+        }
 
+        private static Predicate<Pet> IsASpecies(Species species)
+        {
+            return pet => pet.species == species;
         }
 
         public IEnumerable<Pet> AllFemalePets()
         {
-            return _petsInTheStore.AllItemsThat(Pet.IsFemale());
+            return EnumerableExtensions.ItemsEnumerable(_petsInTheStore, IsFemale());
+        }
+
+        private static Predicate<Pet> IsFemale()
+        {
+            return pet => pet.sex == Sex.Female;
+        }
+
+        private static Predicate<Pet> IsMale()
+        {
+            return pet => pet.sex == Sex.Male;
         }
 
         public IEnumerable<Pet> AllCatsOrDogs()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Cat || pet.species == Species.Dog));
+            return EnumerableExtensions.ItemsEnumerable(_petsInTheStore, pet => pet.species == Species.Cat || pet.species == Species.Dog);
         }
 
         public IEnumerable<Pet> AllPetsButNotMice()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species != Species.Mouse));
+            return EnumerableExtensions.ItemsEnumerable(_petsInTheStore, pet => pet.species != Species.Mouse);
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
         {
-            return _petsInTheStore.AllItemsThat(Pet.IsBornAfter(2010));
+            return EnumerableExtensions.ItemsEnumerable(_petsInTheStore, IsBornAfter(2010));
+        }
+
+        private static Predicate<Pet> IsBornAfter(int year)
+        {
+            return pet => pet.yearOfBirth > year;
         }
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Dog && pet.yearOfBirth >2010));
-
+            return EnumerableExtensions.ItemsEnumerable(_petsInTheStore, pet => pet.yearOfBirth > 2010 && pet.species == Species.Dog);
         }
 
         public IEnumerable<Pet> AllMaleDogs()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Dog && pet.sex == Sex.Male));
+            return EnumerableExtensions.ItemsEnumerable(_petsInTheStore, pet => pet.sex == Sex.Male && pet.species == Species.Dog);
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2011OrRabbits()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Rabbit || pet.yearOfBirth > 2011));
-
+            return EnumerableExtensions.ItemsEnumerable(_petsInTheStore, pet => pet.yearOfBirth > 2011 || pet.species == Species.Rabbit);
         }
     }
 }
