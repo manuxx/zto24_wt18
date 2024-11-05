@@ -21,4 +21,10 @@ public static class EnumerableExtensions
             }
         }
     }
+
+
+    public static IEnumerable<Pet> AllPetsWhere(IEnumerable<Pet> pets, Predicate<Pet> predicate)
+    {
+        return EnumerableExtensions.Filtered(pets, predicate);
+    }
 }

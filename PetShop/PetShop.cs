@@ -44,7 +44,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllMice()
         {
-            return AllPetsWhere(p => p.species == Species.Mouse);
+            return AllPetsWhere(IsOfSpecies(Species.Mouse));
         }
 
         public IEnumerable<Pet> AllFemalePets()
@@ -64,7 +64,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
         {
-            return AllPetsWhere(p => p.yearOfBirth > 2010);
+            return AllPetsWhere(IsBornAfter(2010));
         }
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
@@ -85,6 +85,16 @@ namespace Training.DomainClasses
         public IEnumerable<Pet> AllPetsWhere(Predicate<Pet> predicate)
         {
             return EnumerableExtensions.Filtered(this._petsInTheStore, predicate);
+        }
+
+        public Predicate<Pet> IsBornAfter(int year)
+        {
+            return p => p.yearOfBirth > year;
+        }
+
+        public Predicate<Pet> IsOfSpecies(Species species)
+        {
+            return p => p.species == species;
         }
     }
 }
