@@ -1,13 +1,28 @@
+using System;
 using System.Collections.Generic;
 using Training.DomainClasses;
 
-public static class EnumerableExtensions
+namespace PetShop
 {
-    public static IEnumerable<TItem> OneAtATIme<TItem>(this IEnumerable<TItem> items)
+
+    public static class EnumerableExtensions
     {
-        foreach (var item in items)
+        public static IEnumerable<TItem> OneAtATIme<TItem>(this IEnumerable<TItem> items)
         {
-            yield return item;
+            foreach (var item in items)
+            {
+                yield return item;
+            }
         }
+
+        public static IEnumerable<TItem> AllWhere<TItem>(this IEnumerable<TItem> items, Predicate<TItem> condition)
+        {
+            foreach (var item in items)
+            {
+                if (condition(item))
+                    yield return item;
+            }
+        }
+
     }
 }

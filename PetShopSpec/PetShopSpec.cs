@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Training.DomainClasses;
 using Machine.Specifications;
+using Training.DomainClasses;
+using Training.Specificaton;
 using It = Machine.Specifications.It;
 
-namespace Training.Specificaton
+namespace PetShopSpec
 {
 
-    public abstract class pet_shop_concern : Specification<PetShop>
+    public abstract class pet_shop_concern : Specification<PetShop.PetShop>
     {
         Establish context = () =>
         {
@@ -99,7 +100,7 @@ namespace Training.Specificaton
         private static Pet fluffy_the_first;
         private static Pet fluffy_the_second;
     }
-    [Subject(typeof(PetShop))]
+    [Subject(typeof(PetShop.PetShop))]
     class when_trying_to_change_returned_collection_of_pets : pet_shop_concern
     {
         Establish c = () => pet_initial_content.AddManyItems(new Pet { name = "Pixie" }, new Pet { name = "Dixie" });
