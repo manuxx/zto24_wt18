@@ -36,37 +36,39 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllCats()
         {
-            return AllOfType(Species.Cat);
+            return AllOfType(_petsInTheStore, pet => pet.species == Species.Cat);
         }
 
         public IEnumerable<Pet> AllMice()
         {
-            return AllOfType(Species.Mouse);
+            return AllOfType(_petsInTheStore, pet => pet.species == Species.Mouse);
         }
 
         public IEnumerable<Pet> AllFemalePets()
         {
-            return AllOfSex(AllPets(), Sex.Female);
+            return AllOfType(AllPets(), pet => pet.sex == Sex.Female);
         }
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
         {
-            return BornAfterYear(AllOfType(Species.Dog), 2010);
+            return AllOfType(AllOfType(_petsInTheStore, pet => pet.species == Species.Dog), pet1 => pet1.yearOfBirth > 2010);
         }
 
         public IEnumerable<Pet> AllMaleDogs()
         {
-            return AllOfSex(AllOfType(Species.Dog), Sex.Male);
+            return AllOfType(AllOfType(_petsInTheStore, pet => pet.species == Species.Dog), pet1 => pet1.sex == Sex.Male);
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2011OrRabbits()
         {
-            return BornAfterYear(AllPets(), 2011).Concat(AllOfType(Species.Rabbit)).Distinct();
+            return AllOfType(AllPets(), pet1 => pet1.yearOfBirth > 2011)
+                .Concat(AllOfType(_petsInTheStore, pet => pet.species == Species.Rabbit))
+                .Distinct();
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
         {
-            return BornAfterYear(AllPets(), 2010);
+            return AllOfType(AllPets(), pet => pet.yearOfBirth > 2010);
         }
 
         public IEnumerable<Pet> AllPetsButNotMice()
@@ -76,32 +78,14 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllCatsOrDogs()
         {
-            return AllCats().Concat(AllOfType(Species.Dog));
+            return AllCats().Concat(AllOfType(_petsInTheStore, pet => pet.species == Species.Dog));
         }
 
-        private IEnumerable<Pet> AllOfType(Species species)
+        private IEnumerable<Pet> AllOfType(IEnumerable<Pet> petsInTheStore, Func<Pet, bool> condition)
         {
-            foreach (var pet in _petsInTheStore)
+            foreach (var pet in petsInTheStore)
             {
-                if (pet.species == species)
-                    yield return pet;
-            }
-        }
-
-        private IEnumerable<Pet> BornAfterYear(IEnumerable<Pet> pets, int year)
-        {
-            foreach (var pet in pets)
-            {
-                if (pet.yearOfBirth > year)
-                    yield return pet;
-            }
-        }
-
-        private IEnumerable<Pet> AllOfSex(IEnumerable<Pet> pets, Sex sex)
-        {
-            foreach (var pet in pets)
-            {
-                if (pet.sex == sex)
+                if (condition(pet))
                     yield return pet;
             }
         }
