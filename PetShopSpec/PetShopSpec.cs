@@ -223,7 +223,7 @@ namespace Training.Specificaton
             var foundPets = subject.AllCatsOrDogs();
             foundPets.ShouldContainOnly(cat_Tom, cat_Jinx, dog_Huckelberry, dog_Lassie, dog_Pluto);
         };
-        private It should_be_able_to_find_all_pets_but_not_mice = () =>
+        private It should_be_able_to_finsd_all_pets_but_not_mice = () =>
         {
             var foundPets = subject.AllPetsButNotMice();
             foundPets.ShouldContainOnly(cat_Tom, cat_Jinx, dog_Huckelberry, dog_Lassie, dog_Pluto, rabbit_Fluffy);
@@ -238,12 +238,12 @@ namespace Training.Specificaton
             var foundPets = subject.AllDogsBornAfter2010();
             foundPets.ShouldContainOnly(dog_Pluto);
         };
-         private It should_be_able_to_find_all_male_dogs = () =>
+        private It should_be_able_to_find_all_male_dogs = () =>
         {
             var foundPets = subject.AllMaleDogs();
             foundPets.ShouldContainOnly(dog_Huckelberry, dog_Pluto);
         };
-         private It should_be_able_to_find_all_young_pets_or_rabbits = () =>
+        private It should_be_able_to_find_all_young_pets_or_rabbits = () =>
         {
             var foundPets = subject.AllPetsBornAfter2011OrRabbits();
             foundPets.ShouldContainOnly(mouse_Jerry, rabbit_Fluffy);

@@ -12,12 +12,12 @@ public static class EnumerableExtensions
         }
     }
 
-    public static IEnumerable<TItem> AllItemsThat<TItem>(this IEnumerable<TItem> items, Predicate<TItem> condition)
+    public static IEnumerable<Pet> Condition(this IList<Pet> petsInTheStore, Func<Pet, bool> b)
     {
-        foreach (var item in items)
+        foreach (var pet in petsInTheStore)
         {
-            if (condition(item))
-                yield return item;
+            if (b(pet))
+                yield return pet;
         }
     }
 }
