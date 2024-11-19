@@ -83,35 +83,39 @@ namespace PetShop
         }
     }
 
-    public class OrCriteria<T> : Criteria<T>
+    public abstract class BinaryCriteria<T> : Criteria<T>
     {
-        private readonly Criteria<T> _criterium1;
-        private readonly Criteria<T> _criterium2;
+        protected Criteria<T> _criterium1;
+        protected Criteria<T> _criterium2;
 
-        public OrCriteria(Criteria<T> criterium1, Criteria<T> criterium2)
+        public BinaryCriteria(Criteria<T> criterium1, Criteria<T> criterium2)
         {
             _criterium1 = criterium1;
             _criterium2 = criterium2;
         }
 
-        public bool IsSatisfiedBy(T pet)
+        public abstract bool IsSatisfiedBy(T pet);
+    }
+
+    public class OrCriteria<T> : BinaryCriteria<T>
+    {
+        public OrCriteria(Criteria<T> criterium1, Criteria<T> criterium2) : base(criterium1, criterium2)
+        {
+        }
+
+        public override bool IsSatisfiedBy(T pet)
         {
             return _criterium1.IsSatisfiedBy(pet) || _criterium2.IsSatisfiedBy(pet);
         }
     }
 
-    public class AndCriteria<T> : Criteria<T>
+    public class AndCriteria<T> : BinaryCriteria<T>
     {
-        private readonly Criteria<T> _criterium1;
-        private readonly Criteria<T> _criterium2;
-
-        public AndCriteria(Criteria<T> criterium1, Criteria<T> criterium2)
+        public AndCriteria(Criteria<T> criterium1, Criteria<T> criterium2) : base(criterium1, criterium2)
         {
-            _criterium1 = criterium1;
-            _criterium2 = criterium2;
         }
 
-        public bool IsSatisfiedBy(T pet)
+        public override bool IsSatisfiedBy(T pet)
         {
             return _criterium1.IsSatisfiedBy(pet) && _criterium2.IsSatisfiedBy(pet);
         }
