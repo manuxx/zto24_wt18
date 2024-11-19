@@ -54,7 +54,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllCatsOrDogs()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Cat || pet.species == Species.Dog));
+            return _petsInTheStore.AllItemsThat(new Alternative<Pet>(new SpeciesCriteria(Species.Cat), new SpeciesCriteria(Species.Dog)));
         }
 
         public IEnumerable<Pet> AllPetsButNotMice()
@@ -100,6 +100,24 @@ namespace Training.DomainClasses
         public bool IsSatisfiedBy(T item)
         {
             return _criteria1.IsSatisfiedBy(item) && _criteria2.IsSatisfiedBy(item);
+        }
+    }
+
+    internal class Alternative<T> : Criteria<T>
+    {
+
+        private Criteria<T> _criteria1;
+        private Criteria<T> _criteria2;
+
+        public Alternative(Criteria<T> criteria1, Criteria<T> criteria2)
+        {
+            this._criteria1 = criteria1;
+            this._criteria2 = criteria2;
+        }
+
+        public bool IsSatisfiedBy(T item)
+        {
+            return _criteria1.IsSatisfiedBy(item) || _criteria2.IsSatisfiedBy(item);
         }
     }
 
