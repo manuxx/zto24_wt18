@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.PortableExecutable;
 using Training.DomainClasses;
 using Machine.Specifications;
 using It = Machine.Specifications.It;
@@ -203,10 +204,12 @@ namespace Training.Specificaton
 
     public class when_searching_for_pets : concern_with_pets_for_sorting_and_filtering
     {
+
         private It should_be_able_to_find_all_cats = () =>
         {
-            Criteria<Pet> criteria = Where<Pet>.HasAn(pet=>pet.species).EqualTo(Species.Cat);
-            var foundPets = subject.AllPets().AllItemsThat(criteria);
+            Criteria<Pet> criteria = Where<Pet>.HasAn(pet => pet.species).EqualTo(Species.Cat);
+            
+            var foundPets = subject.AllCats();
             foundPets.ShouldContainOnly(cat_Tom, cat_Jinx);
         };
         private It should_be_able_to_find_all_mice = () =>
@@ -251,6 +254,8 @@ namespace Training.Specificaton
         };
 
     }
+
+ 
 
     class when_sorting_pets : concern_with_pets_for_sorting_and_filtering
     {
