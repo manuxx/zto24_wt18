@@ -69,7 +69,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Dog && pet.yearOfBirth >2010));
+            return _petsInTheStore.AllItemsThat(new Conjunction<Pet>(new BornAfterCriteria(2010), new SpeciesCriteria(Species.Dog)));
 
         }
 
@@ -82,6 +82,24 @@ namespace Training.DomainClasses
         {
             return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Rabbit || pet.yearOfBirth > 2011));
 
+        }
+    }
+
+    internal class Conjunction<T> : Criteria<T>
+    {
+
+        private Criteria<T> _criteria1;
+        private Criteria<T> _criteria2;
+
+        public Conjunction(Criteria<T> criteria1, Criteria<T> criteria2)
+        {
+            this._criteria1 = criteria1;
+            this._criteria2 = criteria2;
+        }
+
+        public bool IsSatisfiedBy(T item)
+        {
+            return _criteria1.IsSatisfiedBy(item) && _criteria2.IsSatisfiedBy(item);
         }
     }
 
