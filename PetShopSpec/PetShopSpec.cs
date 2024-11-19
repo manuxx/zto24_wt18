@@ -252,6 +252,15 @@ namespace Training.Specificaton
 
     }
 
+    internal class Where<T>
+    {
+        public static object HasAn(Func<object, object> func)
+        {
+            
+            return func(null);
+        }
+    }
+
     class when_sorting_pets : concern_with_pets_for_sorting_and_filtering
     {
         It should_be_able_to_sort_by_name_ascending = () =>
