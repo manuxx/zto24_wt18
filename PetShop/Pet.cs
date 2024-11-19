@@ -50,9 +50,22 @@ namespace Training.DomainClasses
             return new SexCriteria(Sex.Female);
         }
 
-        public static Predicate<Pet> IsBornAfter(int year)
+        public static Criteria<Pet> IsBornAfter(int year)
         {
-            return pet => pet.yearOfBirth >year;
+            return new YearOfBirthCriteria(year);
+        }
+
+        public static Criteria<Pet> IsMale()
+        {
+            return new SexCriteria(Sex.Male);
+        }
+    }
+
+    public class YearOfBirthCriteria(int year) : Criteria<Pet>
+    {
+        public bool IsSatisfiedBy(Pet item)
+        {
+            return item.yearOfBirth > year;
         }
     }
 
