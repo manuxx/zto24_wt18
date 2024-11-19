@@ -205,6 +205,9 @@ namespace Training.Specificaton
     {
         private It should_be_able_to_find_all_cats = () =>
         {
+            Criteria<Pet> criteria = Where<Pet>.HasAn(p => p.species).EqualTo(Species.Cat);
+
+
             var foundPets = subject.AllCats();
             foundPets.ShouldContainOnly(cat_Tom, cat_Jinx);
         };
@@ -249,6 +252,34 @@ namespace Training.Specificaton
             foundPets.ShouldContainOnly(mouse_Jerry, rabbit_Fluffy);
         };
 
+    }
+
+    internal class Where<T> : Criteria<T>
+    {
+        public static CriteriaBuilder HasAn(Func<Pet, Species> propertySelector)
+        {
+            return new CriteriaBuilder(propertySelector);
+        }
+
+        public bool IsSatisfiedBy(T pet)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    internal class CriteriaBuilder
+    {
+        private readonly Func<Pet, Species> should_propertySelector;
+
+        public CriteriaBuilder(Func<Pet, Species> propertySelector)
+        {
+            should_propertySelector = propertySelector;
+        }
+
+        public Criteria<Pet> EqualTo(Species cat)
+        {
+            return new AnonymousCriteria<Pet>(pet => should_propertySelector(pet).Equals(cat));
+        }
     }
 
     class when_sorting_pets : concern_with_pets_for_sorting_and_filtering

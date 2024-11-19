@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main\\zto24_wt18-main\\PetShop\\PetShop.csproj": {}
+    "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main(1)\\zto24_wt18-main\\PetShop\\PetShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main\\zto24_wt18-main\\PetShop\\PetShop.csproj": {
+    "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main(1)\\zto24_wt18-main\\PetShop\\PetShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main\\zto24_wt18-main\\PetShop\\PetShop.csproj",
+        "projectUniqueName": "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main(1)\\zto24_wt18-main\\PetShop\\PetShop.csproj",
         "projectName": "PetShop",
-        "projectPath": "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main\\zto24_wt18-main\\PetShop\\PetShop.csproj",
+        "projectPath": "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main(1)\\zto24_wt18-main\\PetShop\\PetShop.csproj",
         "packagesPath": "C:\\Users\\student.NMKZLLAB\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main\\zto24_wt18-main\\PetShop\\obj\\",
+        "outputPath": "C:\\Users\\student.NMKZLLAB\\Downloads\\zto24_wt18-main(1)\\zto24_wt18-main\\PetShop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
