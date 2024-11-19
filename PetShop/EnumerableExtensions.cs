@@ -35,14 +35,15 @@ public class AnonymousCriteria<TItem> : Criteria<TItem>
         _condition = condition;
     }
 
-    public bool IsSatisfiedBy(TItem item)
+    public bool IsSatisfiedBy(TItem pet)
     {
-        return _condition(item);
+        return _condition(pet);
     }
 }
 
 public interface Criteria<TItem>
 {
+<<<<<<< HEAD
     bool IsSatisfiedBy(TItem item);
 }
 
@@ -95,4 +96,7 @@ public class Negation<T> : Criteria<T>
     {
         return !this._criteria.IsSatisfiedBy(item);
     }
+=======
+    bool IsSatisfiedBy(TItem pet);
+>>>>>>> cd4d1528bb450a4809c159824fb3696595cf4e15
 }
