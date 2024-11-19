@@ -45,3 +45,54 @@ public interface Criteria<TItem>
 {
     bool IsSatisfiedBy(TItem item);
 }
+
+public class Conjunction<T> : Criteria<T>
+{
+
+    private Criteria<T> _criteria1;
+    private Criteria<T> _criteria2;
+
+    public Conjunction(Criteria<T> criteria1, Criteria<T> criteria2)
+    {
+        this._criteria1 = criteria1;
+        this._criteria2 = criteria2;
+    }
+
+    public bool IsSatisfiedBy(T item)
+    {
+        return _criteria1.IsSatisfiedBy(item) && _criteria2.IsSatisfiedBy(item);
+    }
+}
+
+public class Alternative<T> : Criteria<T>
+{
+
+    private Criteria<T> _criteria1;
+    private Criteria<T> _criteria2;
+
+    public Alternative(Criteria<T> criteria1, Criteria<T> criteria2)
+    {
+        this._criteria1 = criteria1;
+        this._criteria2 = criteria2;
+    }
+
+    public bool IsSatisfiedBy(T item)
+    {
+        return _criteria1.IsSatisfiedBy(item) || _criteria2.IsSatisfiedBy(item);
+    }
+}
+
+public class Negation<T> : Criteria<T>
+{
+    private Criteria<T> _criteria;
+
+    public Negation(Criteria<T> criteria)
+    {
+        this._criteria = criteria;
+    }
+
+    public bool IsSatisfiedBy(T item)
+    {
+        return !this._criteria.IsSatisfiedBy(item);
+    }
+}
