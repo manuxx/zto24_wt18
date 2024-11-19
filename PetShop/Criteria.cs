@@ -120,4 +120,18 @@ namespace PetShop
             return _criterium1.IsSatisfiedBy(pet) && _criterium2.IsSatisfiedBy(pet);
         }
     }
+
+
+    public static class CriteriaExtension
+    {
+        public static Criteria<T> And<T>(this Criteria<T> first, Criteria<T> second)
+        {
+            return new AndCriteria<T>(first, second);
+        }
+
+        public static Criteria<T> Or<T>(this Criteria<T> first, Criteria<T> second)
+        {
+            return new OrCriteria<T>(first, second);
+        }
+    }
 }
