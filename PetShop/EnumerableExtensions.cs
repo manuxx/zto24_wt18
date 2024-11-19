@@ -26,16 +26,18 @@ public static class EnumerableExtensions
     }
 }
 
-public class AnonymousCriteria<T> : Criteria<T>
+public class AnonymousCriteria<TItem> : Criteria<TItem>
 {
-    public AnonymousCriteria(Predicate<T> condition)
+    private readonly Predicate<TItem> _condition;
+
+    public AnonymousCriteria(Predicate<TItem> condition)
     {
-        throw new NotImplementedException();
+        _condition = condition;
     }
 
-    public bool IsSatisfiedBy(T item)
+    public bool IsSatisfiedBy(TItem item)
     {
-        throw new NotImplementedException();
+        return _condition(item);
     }
 }
 
