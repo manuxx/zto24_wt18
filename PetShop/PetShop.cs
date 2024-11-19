@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using PetShop;
 
 namespace Training.DomainClasses
 {
+
     public class PetShop
     {
         private IList<Pet> _petsInTheStore;
@@ -53,12 +55,12 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllCatsOrDogs()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Cat || pet.species == Species.Dog));
+            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Dog).Or( Pet.IsASpeciesOf(Species.Cat)));
         }
 
         public IEnumerable<Pet> AllPetsButNotMice()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species != Species.Mouse));
+            return _petsInTheStore.AllItemsThat(new Negation<Pet>(Pet.IsASpeciesOf(Species.Mouse)));
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
@@ -68,18 +70,18 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Dog && pet.yearOfBirth >2010));
+            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Dog).And(Pet.IsBornAfter(2010)));
 
         }
 
         public IEnumerable<Pet> AllMaleDogs()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Dog && pet.sex == Sex.Male));
+            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Dog).And(Pet.IsMale()));
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2011OrRabbits()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Rabbit || pet.yearOfBirth > 2011));
+            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Rabbit).Or( Pet.IsBornAfter(2011)));
 
         }
     }
