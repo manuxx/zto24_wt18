@@ -40,28 +40,28 @@ namespace Training.DomainClasses
         public float price { get; set; }
         public Species species { get; set; }
 
-        public static Criteria<Pet> IsASpeciesOf(Species species)
+        public static ICriteria<Pet> IsASpeciesOf(Species species)
         {
             return new SpeciesCriteria(species);
         }
 
-        public static Criteria<Pet> IsFemale()
+        public static ICriteria<Pet> IsFemale()
         {
             return new SexCriteria(Sex.Female);
         }
 
-        public static Criteria<Pet> IsBornAfter(int year)
+        public static ICriteria<Pet> IsBornAfter(int year)
         {
             return new YearOfBirthCriteria(year);
         }
 
-        public static Criteria<Pet> IsMale()
+        public static ICriteria<Pet> IsMale()
         {
             return new SexCriteria(Sex.Male);
         }
     }
 
-    public class YearOfBirthCriteria(int year) : Criteria<Pet>
+    public class YearOfBirthCriteria(int year) : ICriteria<Pet>
     {
         public bool IsSatisfiedBy(Pet item)
         {
@@ -69,7 +69,7 @@ namespace Training.DomainClasses
         }
     }
 
-    public class SpeciesCriteria(Species species) : Criteria<Pet>
+    public class SpeciesCriteria(Species species) : ICriteria<Pet>
     {
         public bool IsSatisfiedBy(Pet item)
         {
@@ -77,7 +77,7 @@ namespace Training.DomainClasses
         }
     }
 
-    public class SexCriteria(Sex sex) : Criteria<Pet>
+    public class SexCriteria(Sex sex) : ICriteria<Pet>
     {
         
         public bool IsSatisfiedBy(Pet item)

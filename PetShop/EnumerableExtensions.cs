@@ -16,7 +16,7 @@ public static class EnumerableExtensions
     {
         return items.AllItemsThat(new AnonymousCriteria<TItem>(condition));
     }
-    public static IEnumerable<TItem> AllItemsThat<TItem>(this IEnumerable<TItem> items, Criteria<TItem> criteria)
+    public static IEnumerable<TItem> AllItemsThat<TItem>(this IEnumerable<TItem> items, ICriteria<TItem> criteria)
     {
         foreach (var item in items)
         {
@@ -26,7 +26,7 @@ public static class EnumerableExtensions
     }
 }
 
-public class AnonymousCriteria<TItem> : Criteria<TItem>
+public class AnonymousCriteria<TItem> : ICriteria<TItem>
 {
     private readonly Predicate<TItem> _condition;
 
@@ -39,9 +39,4 @@ public class AnonymousCriteria<TItem> : Criteria<TItem>
     {
         return _condition(item);
     }
-}
-
-public interface Criteria<TItem>
-{
-    bool IsSatisfiedBy(TItem item);
 }

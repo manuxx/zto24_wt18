@@ -58,7 +58,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPetsButNotMice()
         {
-            return _petsInTheStore.AllItemsThat(new Negate<Pet>(Pet.IsASpeciesOf(Species.Mouse)));
+            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Mouse).Not());
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
@@ -74,37 +74,13 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllMaleDogs()
         {
-            return _petsInTheStore.AllItemsThat(new LogicAnd<Pet>(Pet.IsASpeciesOf(Species.Dog), Pet.IsMale()));
+            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Dog).And(Pet.IsMale()));
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2011OrRabbits()
         {
-            return _petsInTheStore.AllItemsThat(new LogicOr<Pet>(Pet.IsASpeciesOf(Species.Rabbit), Pet.IsBornAfter(2011)));
+            return _petsInTheStore.AllItemsThat(Pet.IsASpeciesOf(Species.Rabbit).Or(Pet.IsBornAfter(2011)));
 
-        }
-    }
-
-    public class LogicOr<T>(Criteria<T> criteria1, Criteria<T> criteria2) : Criteria<T>
-    {
-        public bool IsSatisfiedBy(T item)
-        {
-            return criteria1.IsSatisfiedBy(item) || criteria2.IsSatisfiedBy(item);
-        }
-    }
-
-    public class LogicAnd<T>(Criteria<T> criteria1, Criteria<T> criteria2) : Criteria<T>
-    {
-        public bool IsSatisfiedBy(T item)
-        {
-            return criteria1.IsSatisfiedBy(item) && criteria2.IsSatisfiedBy(item);
-        }
-    }
-    
-    public class Negate<TItem>(Criteria<TItem> criteria) : Criteria<TItem>
-    {
-        public bool IsSatisfiedBy(TItem item)
-        {
-            return !criteria.IsSatisfiedBy(item);
         }
     }
 }
