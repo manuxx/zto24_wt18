@@ -6,27 +6,27 @@ using System.Threading.Tasks;
 
 namespace PetShop
 {
-    public class Where<T>
+    public class Where<TItem>
     {
 
-        public static PreCriterium<T, R> HasAn<T, R>(Func<T, R> propertySelector)
+        public static PreCriterium<TItem, TProperty> HasAn<TProperty>(Func<TItem, TProperty> propertySelector)
         {
-            return new PreCriterium<T, R>(propertySelector);
+            return new PreCriterium<TItem, TProperty>(propertySelector);
         }
     }
 
-    public class PreCriterium<T, R>
+    public class PreCriterium<TItem, TProperty>
     {
-        private readonly Func<T, R> _func;
+        private readonly Func<TItem, TProperty> _propertySelector;
 
-        public PreCriterium(Func<T, R> func)
+        public PreCriterium(Func<TItem, TProperty> propertySelector)
         {
-            _func = func;
+            _propertySelector = propertySelector;
         }
 
-        public Criteria<T> EqualTo(R eq)
+        public Criteria<TItem> EqualTo(TProperty value)
         {
-            return new AnonymousCriteria<T>((T item) => _func(item).Equals(eq));
+            return new AnonymousCriteria<TItem>((TItem item) => _propertySelector(item).Equals(value));
         }
     }
 }
