@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Training.DomainClasses;
 using Machine.Specifications;
+using PetShop;
 using It = Machine.Specifications.It;
 
 namespace Training.Specificaton
@@ -205,7 +206,8 @@ namespace Training.Specificaton
     {
         private It should_be_able_to_find_all_cats = () =>
         {
-            var foundPets = subject.AllCats();
+            Criteria<Pet> criteria = Where<Pet>.HasAn<Pet,Species>(pet => pet.species).EqualTo(Species.Cat);
+            var foundPets = subject.AllPets().AllItemsThat(criteria);
             foundPets.ShouldContainOnly(cat_Tom, cat_Jinx);
         };
         private It should_be_able_to_find_all_mice = () =>
@@ -250,6 +252,8 @@ namespace Training.Specificaton
         };
 
     }
+
+
 
     class when_sorting_pets : concern_with_pets_for_sorting_and_filtering
     {
