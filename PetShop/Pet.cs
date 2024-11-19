@@ -54,52 +54,6 @@ namespace Training.DomainClasses
         {
             return new BornAfterCriteria(year);
         }
-<<<<<<< HEAD
-    }
-
-    internal class SpeciesCriteria : Criteria<Pet>
-    {
-        private Species _species;
-
-        public SpeciesCriteria(Species species)
-        {
-            this._species = species;
-        }
-
-        public bool IsSatisfiedBy(Pet item)
-        {
-            return item.species == this._species;
-        }
-    }
-
-    internal class BornAfterCriteria : Criteria<Pet>
-    {
-        private int yearOfBirth;
-
-        public BornAfterCriteria(int yearOfBirth)
-        {
-            this.yearOfBirth = yearOfBirth;
-        }
-
-        public bool IsSatisfiedBy(Pet item)
-        {
-            return item.yearOfBirth > this.yearOfBirth;
-        }
-    }
-
-    internal class SexCriteria : Criteria<Pet>
-    {
-        private Sex _sex;
-
-        public SexCriteria(Sex sex)
-        {
-            this._sex = sex;
-        }
-
-        public bool IsSatisfiedBy(Pet item)
-        {
-            return item.sex == this._sex;
-=======
 
         public class BornAfterCriteria : Criteria<Pet>
         {
@@ -144,7 +98,11 @@ namespace Training.DomainClasses
             {
                 return pet.species == _species;
             }
->>>>>>> cd4d1528bb450a4809c159824fb3696595cf4e15
+        }
+
+        public static Criteria<Pet> IsMale()
+        {
+            return new SexCriteria(Sex.Male);
         }
     }
 
