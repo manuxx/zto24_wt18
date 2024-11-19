@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Training.DomainClasses
 {
@@ -58,7 +59,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPetsButNotMice()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species != Species.Mouse));
+            return _petsInTheStore.AllItemsThat(new Negation<Pet>(new SpeciesCriteria(Species.Mouse)));
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
@@ -81,6 +82,21 @@ namespace Training.DomainClasses
         {
             return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Rabbit || pet.yearOfBirth > 2011));
 
+        }
+    }
+
+    internal class Negation<T> : Criteria<T>
+    {
+        private Criteria<T> _criteria;
+
+        public Negation(Criteria<T> criteria)
+        {
+            this._criteria = criteria;
+        }
+
+        public bool IsSatisfiedBy(T item)
+        {
+            return !this._criteria.IsSatisfiedBy(item);
         }
     }
 }
