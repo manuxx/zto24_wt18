@@ -54,50 +54,51 @@ namespace Training.DomainClasses
         {
             return new BirthAfterCriteria(year);
         }
+
+        public class BirthAfterCriteria : Criteria<Pet>
+        {
+
+            private readonly int _year;
+
+            public BirthAfterCriteria(int year)
+            {
+                _year = year;
+            }
+
+            public bool IsSatisfiedBy(Pet pet)
+            {
+                return pet.yearOfBirth > _year;
+            }
+        }
+
+        public class SexCriteria : Criteria<Pet>
+        {
+
+            private readonly Sex _sex;
+            public SexCriteria(Sex female)
+            {
+                _sex = female;
+            }
+            public bool IsSatisfiedBy(Pet pet)
+            {
+                return pet.sex == _sex;
+            }
+        }
+
+        public class SpeciesCriteria : Criteria<Pet>
+        {
+            private Species _species;
+
+            public SpeciesCriteria(Species species)
+            {
+                _species = species;
+            }
+
+            public bool IsSatisfiedBy(Pet pet)
+            {
+                return pet.species == _species;
+            }
+        }
     }
 
-    public class BirthAfterCriteria : Criteria<Pet>
-    {
-
-        private readonly int _year;
-
-        public BirthAfterCriteria(int year)
-        {
-            _year = year;
-        }
-
-        public bool IsSatisfiedBy(Pet pet)
-        {
-            return pet.yearOfBirth > _year;
-        }
-    }
-
-    public class SexCriteria : Criteria<Pet>
-    {
-
-        private readonly Sex _sex;
-        public SexCriteria(Sex female)
-        {
-            _sex = female;
-        }
-        public bool IsSatisfiedBy(Pet pet)
-        {
-            return pet.sex == _sex;
-        }
-    }
-
-    public class SpeciesCriteria : Criteria<Pet>
-    {
-        private Species _species;
-
-        public SpeciesCriteria(Species species)
-        {
-            _species = species;
-        }
-
-        public bool IsSatisfiedBy(Pet pet)
-        {
-            return pet.species == _species;
-        }
-    }
 }

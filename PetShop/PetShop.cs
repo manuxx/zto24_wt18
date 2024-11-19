@@ -58,7 +58,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllPetsButNotMice()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species != Species.Mouse));
+            return _petsInTheStore.AllItemsThat(new Negation<Pet>(Pet.IsASpeciesOf(Species.Mouse)));
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2010()
@@ -81,6 +81,22 @@ namespace Training.DomainClasses
         {
             return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Rabbit || pet.yearOfBirth > 2011));
 
+        }
+    }
+
+    public class Negation<TItem> : Criteria<TItem>
+    {
+        private Criteria<TItem> _originalCriteria;
+
+
+        public Negation(Criteria<TItem> originalCriteria)
+        {
+            _originalCriteria = originalCriteria;
+        }
+
+        public bool IsSatisfiedBy(TItem item)
+        {
+            return !_originalCriteria.IsSatisfiedBy(item);
         }
     }
 }
