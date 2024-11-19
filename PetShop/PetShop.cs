@@ -53,7 +53,7 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllCatsOrDogs()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Cat || pet.species == Species.Dog));
+            return _petsInTheStore.AllItemsThat(new Alternative<Pet>(Pet.IsASpeciesOf(Species.Cat), Pet.IsASpeciesOf(Species.Dog)));
         }
 
         public IEnumerable<Pet> AllPetsButNotMice()
@@ -68,19 +68,51 @@ namespace Training.DomainClasses
 
         public IEnumerable<Pet> AllDogsBornAfter2010()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Dog && pet.yearOfBirth >2010));
+            return _petsInTheStore.AllItemsThat(new Conjunction<Pet>(Pet.IsASpeciesOf(Species.Dog), Pet.IsBornAfter(2010)));
 
         }
 
         public IEnumerable<Pet> AllMaleDogs()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Dog && pet.sex == Sex.Male));
+            return _petsInTheStore.AllItemsThat(new Conjunction<Pet>(Pet.IsASpeciesOf(Species.Dog), Pet.IsMale()));
         }
 
         public IEnumerable<Pet> AllPetsBornAfter2011OrRabbits()
         {
-            return _petsInTheStore.AllItemsThat((pet => pet.species == Species.Rabbit || pet.yearOfBirth > 2011));
+            return _petsInTheStore.AllItemsThat(new Alternative<Pet>(Pet.IsASpeciesOf(Species.Rabbit), Pet.IsBornAfter(2011)));
 
+        }
+    }
+
+    public class Conjunction<TItem> : Criteria<TItem>
+    {
+
+        private Criteria<TItem> _criteria1, _criteria2;
+        public Conjunction(Criteria<TItem> criteria1, Criteria<TItem> criteria2)
+        {
+            _criteria1 = criteria1;
+            _criteria2 = criteria2;
+        }
+
+        public bool IsSatisfiedBy(TItem item)
+        {
+            return _criteria1.IsSatisfiedBy(item) && _criteria2.IsSatisfiedBy(item);
+        }
+    }
+
+    public class Alternative<TItem> : Criteria<TItem>
+    {
+
+        private Criteria<TItem> _criteria1, _criteria2;
+        public Alternative(Criteria<TItem> criteria1, Criteria<TItem> criteria2)
+        {
+            _criteria1 = criteria1;
+            _criteria2 = criteria2;
+        }
+
+        public bool IsSatisfiedBy(TItem item)
+        {
+            return _criteria1.IsSatisfiedBy(item) ||  _criteria2.IsSatisfiedBy(item);
         }
     }
 
