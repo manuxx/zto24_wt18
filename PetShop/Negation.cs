@@ -11,7 +11,7 @@ namespace Training.DomainClasses
 
         public bool IsSatisfiedBy(TItem item)
         {
-            return ! _criteriaForNegation.IsSatisfiedBy(item);
+            return !_criteriaForNegation.IsSatisfiedBy(item);
         }
     }
 }

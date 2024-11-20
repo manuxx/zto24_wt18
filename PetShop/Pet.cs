@@ -45,14 +45,28 @@ namespace Training.DomainClasses
             return new SpeciesCriteria(species);
         }
 
+        public static Criteria<Pet> IsBornAfter(int i)
+        {
+            return new BornAfterCriteria(i);
+        }
+
         public static Criteria<Pet> IsFemale()
         {
             return new SexCriteria(Sex.Female);
         }
-
-        public static Criteria<Pet> IsBornAfter(int year)
+        public class SexCriteria : Criteria<Pet>
         {
-            return new BornAfterCriteria(year);
+            private readonly Sex _sex;
+
+            public SexCriteria(Sex sex)
+            {
+                _sex = sex;
+            }
+
+            public bool IsSatisfiedBy(Pet pet)
+            {
+                return pet.sex == _sex;
+            }
         }
 
         public class BornAfterCriteria : Criteria<Pet>
@@ -70,21 +84,6 @@ namespace Training.DomainClasses
             }
         }
 
-        public class SexCriteria : Criteria<Pet>
-        {
-            private readonly Sex _sex;
-
-            public SexCriteria(Sex sex)
-            {
-                _sex = sex;
-            }
-
-            public bool IsSatisfiedBy(Pet pet)
-            {
-                return pet.sex == _sex;
-            }
-        }
-
         public class SpeciesCriteria : Criteria<Pet>
         {
             private readonly Species _species;
@@ -94,9 +93,9 @@ namespace Training.DomainClasses
                 _species = species;
             }
 
-            public bool IsSatisfiedBy(Pet pet)
+            public bool IsSatisfiedBy(Pet item)
             {
-                return pet.species == _species;
+                return item.species == _species;
             }
         }
 
@@ -106,4 +105,5 @@ namespace Training.DomainClasses
         }
     }
 
+    
 }

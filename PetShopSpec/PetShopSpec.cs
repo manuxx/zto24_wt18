@@ -6,7 +6,6 @@ using It = Machine.Specifications.It;
 
 namespace Training.Specificaton
 {
-
     public abstract class pet_shop_concern : Specification<PetShop>
     {
         Establish context = () =>
@@ -81,7 +80,6 @@ namespace Training.Specificaton
         private static Pet pet;
     }
 
-
 	public class when_adding_a_new_pet_with_existing_name_ : pet_shop_concern
     {
         Establish context = () =>
@@ -99,6 +97,7 @@ namespace Training.Specificaton
         private static Pet fluffy_the_first;
         private static Pet fluffy_the_second;
     }
+
     [Subject(typeof(PetShop))]
     class when_trying_to_change_returned_collection_of_pets : pet_shop_concern
     {
@@ -112,6 +111,7 @@ namespace Training.Specificaton
         private static Exception exception;
         It invalid_cast_exception_should_be_thrown = () => exception.ShouldBeOfExactType<InvalidCastException>();
     }
+
     public class concern_with_pets_for_sorting_and_filtering : pet_shop_concern
     {
         private Establish c = () =>
@@ -205,8 +205,7 @@ namespace Training.Specificaton
     {
         private It should_be_able_to_find_all_cats = () =>
         {
-            Criteria<Pet> criteria = Where<Pet>.HasAn(pet=>pet.species).EqualTo(Species.Cat);
-            var foundPets = subject.AllPets().AllItemsThat(criteria);
+            var foundPets = subject.AllCats();
             foundPets.ShouldContainOnly(cat_Tom, cat_Jinx);
         };
         private It should_be_able_to_find_all_mice = () =>
@@ -214,21 +213,25 @@ namespace Training.Specificaton
             var foundPets = subject.AllMice();
             foundPets.ShouldContainOnly(mouse_Dixie, mouse_Jerry);
         };
+
         private It should_be_able_to_find_all_female_pets = () =>
         {
             var foundPets = subject.AllFemalePets();
             foundPets.ShouldContainOnly(dog_Lassie, mouse_Dixie);
         };
+       
         private It should_be_able_to_find_all_cats_or_dogs = () =>
         {
             var foundPets = subject.AllCatsOrDogs();
             foundPets.ShouldContainOnly(cat_Tom, cat_Jinx, dog_Huckelberry, dog_Lassie, dog_Pluto);
         };
+        
         private It should_be_able_to_find_all_pets_but_not_mice = () =>
         {
             var foundPets = subject.AllPetsButNotMice();
             foundPets.ShouldContainOnly(cat_Tom, cat_Jinx, dog_Huckelberry, dog_Lassie, dog_Pluto, rabbit_Fluffy);
         };
+        
         private It should_be_able_to_find_all_pets_born_after_2010 = () =>
         {
             var foundPets = subject.AllPetsBornAfter2010();
@@ -239,12 +242,12 @@ namespace Training.Specificaton
             var foundPets = subject.AllDogsBornAfter2010();
             foundPets.ShouldContainOnly(dog_Pluto);
         };
-         private It should_be_able_to_find_all_male_dogs = () =>
+        private It should_be_able_to_find_all_male_dogs = () =>
         {
             var foundPets = subject.AllMaleDogs();
             foundPets.ShouldContainOnly(dog_Huckelberry, dog_Pluto);
         };
-         private It should_be_able_to_find_all_young_pets_or_rabbits = () =>
+        private It should_be_able_to_find_all_young_pets_or_rabbits = () =>
         {
             var foundPets = subject.AllPetsBornAfter2011OrRabbits();
             foundPets.ShouldContainOnly(mouse_Jerry, rabbit_Fluffy);
@@ -263,6 +266,5 @@ namespace Training.Specificaton
                 dog_Pluto, cat_Tom);
         };
     };
-
 
 }

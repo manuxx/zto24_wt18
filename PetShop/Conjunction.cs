@@ -8,7 +8,7 @@ namespace Training.DomainClasses
 
         public override bool IsSatisfiedBy(TItem item)
         {
-            return _criteria1.IsSatisfiedBy(item) && _criteria2.IsSatisfiedBy(item); ;
+            return _criteria1.IsSatisfiedBy(item) && _criteria2.IsSatisfiedBy(item);
         }
     }
 }
